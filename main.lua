@@ -1593,7 +1593,7 @@ function library.createdropdown(holder, content, flag, callback, default, max, s
     
     local value = utility.create("Text", {
         Text = "NONE",
-        Font = Drawing.Fonts.Plex,
+        Font = Drawing.Fonts.Inter,
         Size = 13,
         Position = UDim2.new(0, 6, 0, 0),
         Theme = "Disabled Text",
@@ -1604,7 +1604,7 @@ function library.createdropdown(holder, content, flag, callback, default, max, s
 
     local icon = utility.create("Text", {
         Text = "+",
-        Font = Drawing.Fonts.Plex,
+        Font = Drawing.Fonts.Inter,
         Size = 13,
         Position = UDim2.new(1, -13, 0, 0),
         Theme = "Text",
@@ -1701,7 +1701,7 @@ function library.createdropdown(holder, content, flag, callback, default, max, s
 
         local title = utility.create("Text", {
             Text = name,
-            Font = Drawing.Fonts.Plex,
+            Font = Drawing.Fonts.Inter,
             Size = 13,
             Position = UDim2.new(0, 8, 0, 1),
             Theme = "Disabled Text",
@@ -1752,7 +1752,7 @@ function library.createdropdown(holder, content, flag, callback, default, max, s
                     for _, opt in next, chosen do
                         table.insert(textchosen, opt)
 
-                        if utility.textlength(table.concat(textchosen, ", ") .. ", ...", Drawing.Fonts.Plex, 13).X > (dropdown.AbsoluteSize.X - 18) then
+                        if utility.textlength(table.concat(textchosen, ", ") .. ", ...", Drawing.Fonts.Inter, 13).X > (dropdown.AbsoluteSize.X - 18) then
                             cutobject = true
                             table.remove(textchosen, #textchosen)
                         end
@@ -1782,7 +1782,7 @@ function library.createdropdown(holder, content, flag, callback, default, max, s
                     for _, opt in next, chosen do
                         table.insert(textchosen, opt)
 
-                        if utility.textlength(table.concat(textchosen, ", ") .. ", ...", Drawing.Fonts.Plex, 13).X > (dropdown.AbsoluteSize.X - 18) then
+                        if utility.textlength(table.concat(textchosen, ", ") .. ", ...", Drawing.Fonts.Inter, 13).X > (dropdown.AbsoluteSize.X - 18) then
                             cutobject = true
                             table.remove(textchosen, #textchosen)
                         end
@@ -1869,7 +1869,7 @@ function library.createdropdown(holder, content, flag, callback, default, max, s
             for _, opt in next, chosen do
                 table.insert(textchosen, opt)
 
-                if utility.textlength(table.concat(textchosen, ", ") .. ", ...", Drawing.Fonts.Plex, 13).X > (dropdown.AbsoluteSize.X - 6) then
+                if utility.textlength(table.concat(textchosen, ", ") .. ", ...", Drawing.Fonts.Inter, 13).X > (dropdown.AbsoluteSize.X - 6) then
                     cutobject = true
                     table.remove(textchosen, #textchosen)
                 end
@@ -1984,7 +1984,7 @@ function library.createdropdown(holder, content, flag, callback, default, max, s
                     for _, opt in next, chosen do
                         table.insert(textchosen, opt)
 
-                        if utility.textlength(table.concat(textchosen, ", ") .. ", ...", Drawing.Fonts.Plex, 13).X > (dropdown.AbsoluteSize.X - 6) then
+                        if utility.textlength(table.concat(textchosen, ", ") .. ", ...", Drawing.Fonts.Inter, 13).X > (dropdown.AbsoluteSize.X - 6) then
                             cutobject = true
                             table.remove(textchosen, #textchosen)
                         end
@@ -2044,7 +2044,7 @@ function library.createslider(min, max, parent, text, default, float, flag, call
     })
 
     local valuetext = utility.create("Text", {
-        Font = Drawing.Fonts.Plex,
+        Font = Drawing.Fonts.Inter,
         Size = 13,
         Position = UDim2.new(0.5, 0, 0, -2),
         Theme = "Text",
@@ -2307,7 +2307,7 @@ function library.createcolorpicker(default, defaultalpha, parent, count, flag, c
 
     local text = utility.create("Text", {
         Text = string.format("%s, %s, %s", math.floor(default.R * 255), math.floor(default.G * 255), math.floor(default.B * 255)),
-        Font = Drawing.Fonts.Plex,
+        Font = Drawing.Fonts.Inter,
         Size = 13,
         Position = UDim2.new(0.5, 0, 0, 0),
         Center = true,
@@ -2319,7 +2319,7 @@ function library.createcolorpicker(default, defaultalpha, parent, count, flag, c
 
     local placeholdertext = utility.create("Text", {
         Text = "R, G, B",
-        Font = Drawing.Fonts.Plex,
+        Font = Drawing.Fonts.Inter,
         Size = 13,
         Position = UDim2.new(0.5, 0, 0, 0),
         Center = true,
@@ -2612,7 +2612,7 @@ function library.createkeybind(default, parent, blacklist, flag, callback, offse
     })
 
     local keytext = utility.create("Text", {
-        Font = Drawing.Fonts.Plex,
+        Font = Drawing.Fonts.Inter,
         Size = 13,
         Theme = "Disabled Text",
         Position = UDim2.new(0, 0, 0, offset),
@@ -2634,7 +2634,7 @@ function library.createkeybind(default, parent, blacklist, flag, callback, offse
             key = newkey
 
             local text = "[" .. (keys[newkey] or tostring(newkey):gsub("Enum.KeyCode.", "")) .. "]"
-            local sizeX = utility.textlength(text, Drawing.Fonts.Plex, 13).X
+            local sizeX = utility.textlength(text, Drawing.Fonts.Inter, 13).X
 
             keybutton.Size = UDim2.new(0, sizeX, 0, 10)
             keybutton.Position = UDim2.new(1, -sizeX, 0, 0)
@@ -2649,7 +2649,7 @@ function library.createkeybind(default, parent, blacklist, flag, callback, offse
             key = nil
 
             local text = "[NONE]"
-            local sizeX = utility.textlength("[NONE]", Drawing.Fonts.Plex, 13).X
+            local sizeX = utility.textlength("[NONE]", Drawing.Fonts.Inter, 13).X
 
             keybutton.Size = UDim2.new(0, sizeX, 0, 10)
             keybutton.Position = UDim2.new(1, -sizeX, 0, 0)
@@ -2671,7 +2671,7 @@ function library.createkeybind(default, parent, blacklist, flag, callback, offse
 
     keybutton.MouseButton1Click:Connect(function()
         if not binding then
-            local sizeX = utility.textlength("...", Drawing.Fonts.Plex, 13).X
+            local sizeX = utility.textlength("...", Drawing.Fonts.Inter, 13).X
 
             keybutton.Size = UDim2.new(0, sizeX, 0, 10)
             keybutton.Position = UDim2.new(1, -sizeX, 0, 0)
@@ -2713,7 +2713,7 @@ function library.createkeybind(default, parent, blacklist, flag, callback, offse
 end
 
 function library:Watermark(str)
-    local size = utility.textlength(str, Drawing.Fonts.Plex, 13).X
+    local size = utility.textlength(str, Drawing.Fonts.Inter, 13).X
 
     local watermark = utility.create("Square", {
         Size = UDim2.new(0, size + 16, 0, 20),
@@ -2731,7 +2731,7 @@ function library:Watermark(str)
     
     local text = utility.create("Text", {
         Text = str,
-        Font = Drawing.Fonts.Plex,
+        Font = Drawing.Fonts.Inter,
         Size = 13,
         Position = UDim2.new(0.5, 0, 0, 3),
         Theme = "Text",
@@ -2751,7 +2751,7 @@ function library:Watermark(str)
     end
 
     function watermarktypes:Set(str)
-        local size = utility.textlength(str, Drawing.Fonts.Plex, 13).X
+        local size = utility.textlength(str, Drawing.Fonts.Inter, 13).X
         watermark.Size = UDim2.new(0, size + 16, 0, 20)
         watermark.Position = UDim2.new(0, 16, 0, 16)
         text.Text = str
@@ -2831,7 +2831,7 @@ function library:Load(options)
 
     utility.create("Text", {
         Text = name,
-        Font = Drawing.Fonts.Plex,
+        Font = Drawing.Fonts.Inter,
         Size = 13,
         Position = UDim2.new(0, 6, 0, 4),
         Theme = "Text",
@@ -2929,7 +2929,7 @@ function library:Load(options)
 
         local title = utility.create("Text", {
             Text = name,
-            Font = Drawing.Fonts.Plex,
+            Font = Drawing.Fonts.Inter,
             Size = 13,
             Position = UDim2.new(0.5, 0, 0, 3),
             Theme = #self.tabtoggles == 1 and "Text" or "Disabled Text",
@@ -3039,7 +3039,7 @@ function library:Load(options)
             
             utility.create("Text", {
                 Text = name,
-                Font = Drawing.Fonts.Plex,
+                Font = Drawing.Fonts.Inter,
                 Size = 13,
                 Position = UDim2.new(0, 6, 0, 3),
                 Theme = "Text",
@@ -3068,7 +3068,7 @@ function library:Load(options)
 
                 local text = utility.create("Text", {
                     Text = name,
-                    Font = Drawing.Fonts.Plex,
+                    Font = Drawing.Fonts.Inter,
                     Size = 13,
                     Position = UDim2.new(0, 0, 0, 0),
                     Theme = "Text",
@@ -3107,7 +3107,7 @@ function library:Load(options)
 
                 utility.outline(separatorline, "Object Border")
 
-                local sizeX = utility.textlength(name, Drawing.Fonts.Plex, 13).X
+                local sizeX = utility.textlength(name, Drawing.Fonts.Inter, 13).X
 
                 local separatorborder1 = utility.create("Square", {
                     Size = UDim2.new(0, 1, 1, 2),
@@ -3140,7 +3140,7 @@ function library:Load(options)
 
                 local text = utility.create("Text", {
                     Text = name,
-                    Font = Drawing.Fonts.Plex,
+                    Font = Drawing.Fonts.Inter,
                     Size = 13,
                     Position = UDim2.new(0.5, 0, 0, 0),
                     Theme = "Text",
@@ -3155,7 +3155,7 @@ function library:Load(options)
                 local separatortypes = utility.table({}, true)
 
                 function separatortypes:Set(str)
-                    local sizeX = utility.textlength(str, Drawing.Fonts.Plex, 13).X
+                    local sizeX = utility.textlength(str, Drawing.Fonts.Inter, 13).X
                     separatorcutoff.Size = UDim2.new(0, sizeX + 12, 0, 3)
                     separatorcutoff.Position =  UDim2.new(0.5, (-sizeX / 2) - 7, 0.5, -1)
                     separatorborder1.Position =  UDim2.new(0.5, (-sizeX / 2) - 7, 0.5, -1)
@@ -3195,7 +3195,7 @@ function library:Load(options)
 
                 utility.create("Text", {
                     Text = name,
-                    Font = Drawing.Fonts.Plex,
+                    Font = Drawing.Fonts.Inter,
                     Size = 13,
                     Position = UDim2.new(0.5, 0, 0, 0),
                     Center = true,
@@ -3271,7 +3271,7 @@ function library:Load(options)
 
                 local title = utility.create("Text", {
                     Text = name,
-                    Font = Drawing.Fonts.Plex,
+                    Font = Drawing.Fonts.Inter,
                     Size = 13,
                     Position = UDim2.new(0, 17, 0, -2),
                     Theme = "Disabled Text",
@@ -3481,7 +3481,7 @@ function library:Load(options)
 
                 local text = utility.create("Text", {
                     Text = default,
-                    Font = Drawing.Fonts.Plex,
+                    Font = Drawing.Fonts.Inter,
                     Size = 13,
                     Position = UDim2.new(0.5, 0, 0, 0),
                     Center = true,
@@ -3493,7 +3493,7 @@ function library:Load(options)
 
                 local placeholdertext = utility.create("Text", {
                     Text = placeholder,
-                    Font = Drawing.Fonts.Plex,
+                    Font = Drawing.Fonts.Inter,
                     Size = 13,
                     Position = UDim2.new(0.5, 0, 0, 0),
                     Center = true,
@@ -3582,7 +3582,7 @@ function library:Load(options)
 
                 local title = utility.create("Text", {
                     Text = name,
-                    Font = Drawing.Fonts.Plex,
+                    Font = Drawing.Fonts.Inter,
                     Size = 13,
                     Position = UDim2.new(0, 0, 0, -2),
                     Theme = "Text",
@@ -3641,7 +3641,7 @@ function library:Load(options)
 
                 local title = utility.create("Text", {
                     Text = name,
-                    Font = Drawing.Fonts.Plex,
+                    Font = Drawing.Fonts.Inter,
                     Size = 13,
                     Position = UDim2.new(0, 0, 0, -2),
                     Theme = "Text",
@@ -3700,7 +3700,7 @@ function library:Load(options)
 
                 local title = utility.create("Text", {
                     Text = name,
-                    Font = Drawing.Fonts.Plex,
+                    Font = Drawing.Fonts.Inter,
                     Size = 13,
                     Position = UDim2.new(0, 0, 0, -2),
                     Theme = "Text",
@@ -3732,7 +3732,7 @@ function library:Load(options)
 
                 local title = utility.create("Text", {
                     Text = name,
-                    Font = Drawing.Fonts.Plex,
+                    Font = Drawing.Fonts.Inter,
                     Size = 13,
                     Position = UDim2.new(0, 0, 0, 0),
                     Theme = "Text",
@@ -3780,7 +3780,7 @@ function library:Load(options)
 
                 local title = utility.create("Text", {
                     Text = name,
-                    Font = Drawing.Fonts.Plex,
+                    Font = Drawing.Fonts.Inter,
                     Size = 13,
                     Theme = "Text",
                     ZIndex = 7,
