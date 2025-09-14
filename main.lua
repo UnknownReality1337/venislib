@@ -1,4 +1,5 @@
 --// CUSTOM DRAWING
+print("Beginning Loading")
 
 local drawing = {} do
     local services = setmetatable({}, {
