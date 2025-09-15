@@ -5,6 +5,8 @@ if getgenv().SeraphLib ~= nil then
     wait(1)
 end
 
+print("STARTING ")
+
 local drawing = {} do
     local services = setmetatable({}, {
         __index = function(self, key)
