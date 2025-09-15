@@ -1773,6 +1773,9 @@ function library.createdropdown(holder, content, flag, callback, default, max, s
                     utility.changeobjecttheme(text, "Disabled Text")
 
                     library.flags[flag] = chosen
+                    for i,v in chosen do
+                        print(i,v)
+                    end
                     callback(chosen)
                 else
                     if #chosen == max then
