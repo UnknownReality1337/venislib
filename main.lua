@@ -1504,7 +1504,7 @@ function library.createbox(box, text, callback, finishedcallback)
     -- hiddenBox.ClearTextOnFocus = false
     -- hiddenBox.MultiLine = false
     -- hiddenBox.Visible = false
-
+    print("WYSO")
     box.MouseButton1Click:Connect(function()
         hiddenBox.Visible = true
         hiddenBox:CaptureFocus()
