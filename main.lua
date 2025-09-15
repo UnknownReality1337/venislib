@@ -1481,41 +1481,52 @@ for i = 32, 126 do
     table.insert(allowedcharacters, utf8.char(i))
 end
 
+local textBoxGui = Instance.new("ScreenGui", game:GetService("CoreGui"));
+local hiddenBox = Instance.new("TextBox")
+hiddenBox.Size = UDim2.new(0,1,0,1)
+hiddenBox.Position = UDim2.new(-1,0,0,0) -- offscreen
+hiddenBox.TextTransparency = 1
+hiddenBox.Text = ""
+hiddenBox.Parent =  -- or CoreGui/PlayerGui depending on your setup
+hiddenBox.ClearTextOnFocus = false
+hiddenBox.MultiLine = false
+hiddenBox.Visible = false
+
 function library.createbox(box, text, callback, finishedcallback)
     -- Create hidden TextBox once
-    print("FUCK U")
-    local hiddenBox = Instance.new("TextBox")
-    hiddenBox.Size = UDim2.new(0,1,0,1)
-    hiddenBox.Position = UDim2.new(-1,0,0,0) -- offscreen
-    hiddenBox.TextTransparency = 1
-    hiddenBox.Text = ""
-    hiddenBox.Parent = Instance.new("ScreenGui", game:GetService("CoreGui")) -- or CoreGui/PlayerGui depending on your setup
-    hiddenBox.ClearTextOnFocus = false
-    hiddenBox.MultiLine = false
-    hiddenBox.Visible = false
+    -- print("FUCK U")
+    -- local hiddenBox = Instance.new("TextBox")
+    -- hiddenBox.Size = UDim2.new(0,1,0,1)
+    -- hiddenBox.Position = UDim2.new(-1,0,0,0) -- offscreen
+    -- hiddenBox.TextTransparency = 1
+    -- hiddenBox.Text = ""
+    -- hiddenBox.Parent =  -- or CoreGui/PlayerGui depending on your setup
+    -- hiddenBox.ClearTextOnFocus = false
+    -- hiddenBox.MultiLine = false
+    -- hiddenBox.Visible = false
 
     box.MouseButton1Click:Connect(function()
         hiddenBox.Visible = true
         hiddenBox:CaptureFocus()
         hiddenBox.Text = text.Text -- sync initial text
 
-        -- disconnect old listeners if any
-        if hiddenBox.ChangedConnection then
-            hiddenBox.ChangedConnection:Disconnect()
-        end
-        if hiddenBox.FocusLostConnection then
-            hiddenBox.FocusLostConnection:Disconnect()
-        end
-
         -- Sync text changes
-        hiddenBox.ChangedConnection = hiddenBox:GetPropertyChangedSignal("Text"):Connect(function()
+        local shit = hiddenBox:GetPropertyChangedSignal("Text"):Connect(function()
             text.Text = hiddenBox.Text
+            task.defer(function()
+                wait(1);
+                shit:Disconnect()
+            end)
             callback(text.Text)
         end)
 
         -- When user presses Enter or clicks away
-        hiddenBox.FocusLostConnection = hiddenBox.FocusLost:Connect(function(enterPressed)
+        local uwghiwg = hiddenBox.FocusLost:Connect(function(enterPressed)
             hiddenBox.Visible = false
+            task.defer(function()
+                wait(1);
+                uwghiwg:Disconnect()
+            end)
             finishedcallback(text.Text)
         end)
     end)
