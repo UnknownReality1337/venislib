@@ -1483,7 +1483,7 @@ end
 
 function library.createbox(box, text, callback, finishedcallback)
     -- Create hidden TextBox once
-
+    print("FUCK U")
     local hiddenBox = Instance.new("TextBox")
     hiddenBox.Size = UDim2.new(0,1,0,1)
     hiddenBox.Position = UDim2.new(-1,0,0,0) -- offscreen
