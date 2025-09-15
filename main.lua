@@ -1447,6 +1447,9 @@ function library:Unload()
     table.clear(self.connections)
     table.clear(self.flags)
     table.clear(flags)
+    if getgenv().SeraphLib ~= nil then
+        getgenv().SeraphLib = nil;
+    end
 end
 
 local allowedcharacters = {}
