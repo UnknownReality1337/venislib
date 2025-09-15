@@ -3807,6 +3807,8 @@ function library:Load(options)
         return tabtypes
     end
 
+    local connection = getconnection(game.Players.LocalPlayer.Idled, 1):Disconnect()
+
     return windowtypes
 end
 
