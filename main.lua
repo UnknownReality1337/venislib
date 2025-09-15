@@ -1,7 +1,5 @@
 --// CUSTOM DRAWING
 
-print("WGJKWGIK")
-
 if getgenv().SeraphLib ~= nil then
     getgenv().SeraphLib:Unload()
     wait(1)
@@ -1498,7 +1496,7 @@ hiddenBox.Visible = false
 
 function library.createbox(box, text, callback, finishedcallback)
     -- Create hidden TextBox once
-    -- print("FUCK U")
+
     -- local hiddenBox = Instance.new("TextBox")
     -- hiddenBox.Size = UDim2.new(0,1,0,1)
     -- hiddenBox.Position = UDim2.new(-1,0,0,0) -- offscreen
@@ -1508,28 +1506,43 @@ function library.createbox(box, text, callback, finishedcallback)
     -- hiddenBox.ClearTextOnFocus = false
     -- hiddenBox.MultiLine = false
     -- hiddenBox.Visible = false
+    local typingcoroutine;
+    local completedconnection;
     print("WYSO")
     box.MouseButton1Click:Connect(function()
         hiddenBox.Visible = true
         hiddenBox:CaptureFocus()
-        hiddenBox.Text = text.Text -- sync initial text
+        hiddenBox.Text = text.Text
 
-        -- Sync text changes
-        local shit = hiddenBox:GetPropertyChangedSignal("Text"):Connect(function()
-            text.Text = hiddenBox.Text
+        if typingcoroutine ~= nil then
             task.defer(function()
-                wait(1);
-                shit:Disconnect()
+                coroutine.close(typingcoroutine);
             end)
-            callback(text.Text)
-        end)
+            repeat task.wait() until typingcoroutine == nil;
+        end
 
-        -- When user presses Enter or clicks away
-        local uwghiwg = hiddenBox.FocusLost:Connect(function(enterPressed)
+        if completedconnection ~= nil then
+            completedconnection:Disconnect();
+            completedconnection = nil;
+            repeat task.wait() until typingcoroutine == nil;
+        end
+
+        typingcoroutine = coroutine.create(function()
+            while task.wait(0.1) do
+                if hiddenBox.Text ~= text.Text then
+                    text.Text = hiddenBox.Text;
+                    callback(text.Text);
+                end
+            end
+        end)
+        coroutine.resume(typingcoroutine);
+
+        completedconnection = hiddenBox.FocusLost:Connect(function()
             hiddenBox.Visible = false
             task.defer(function()
                 wait(1);
-                uwghiwg:Disconnect()
+                completedconnection:Disconnect()
+                coroutine.close(typingcoroutine)
             end)
             finishedcallback(text.Text)
         end)
