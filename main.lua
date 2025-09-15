@@ -1,5 +1,7 @@
 --// CUSTOM DRAWING
 
+print("SIUGUWI")
+
 if getgenv().SeraphLib ~= nil then
     getgenv().SeraphLib:Unload()
     wait(1)
