@@ -1483,13 +1483,13 @@ end
 
 function library.createbox(box, text, callback, finishedcallback)
     -- Create hidden TextBox once
-    
+
     local hiddenBox = Instance.new("TextBox")
     hiddenBox.Size = UDim2.new(0,1,0,1)
     hiddenBox.Position = UDim2.new(-1,0,0,0) -- offscreen
     hiddenBox.TextTransparency = 1
     hiddenBox.Text = ""
-    hiddenBox.Parent = game:GetService("CoreGui") -- or CoreGui/PlayerGui depending on your setup
+    hiddenBox.Parent = Instance.new("ScreenGui", game:GetService("CoreGui")) -- or CoreGui/PlayerGui depending on your setup
     hiddenBox.ClearTextOnFocus = false
     hiddenBox.MultiLine = false
     hiddenBox.Visible = false
