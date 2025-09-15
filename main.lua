@@ -1,3 +1,4 @@
+print("WKGIW")
 --// CUSTOM DRAWING
 
 if getgenv().SeraphLib ~= nil then
