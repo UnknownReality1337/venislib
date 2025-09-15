@@ -1482,98 +1482,41 @@ for i = 32, 126 do
 end
 
 function library.createbox(box, text, callback, finishedcallback)
+    -- Create hidden TextBox once
+    local hiddenBox = Instance.new("TextBox")
+    hiddenBox.Size = UDim2.new(0,1,0,1)
+    hiddenBox.Position = UDim2.new(-1,0,0,0) -- offscreen
+    hiddenBox.TextTransparency = 1
+    hiddenBox.Text = ""
+    hiddenBox.Parent = box -- or CoreGui/PlayerGui depending on your setup
+    hiddenBox.ClearTextOnFocus = false
+    hiddenBox.MultiLine = false
+    hiddenBox.Visible = false
+
     box.MouseButton1Click:Connect(function()
-        services.ContextActionService:BindActionAtPriority("disablekeyboard", function() return Enum.ContextActionResult.Sink end, false, 3000, Enum.UserInputType.Keyboard)
-        
-        local connection
-        local backspaceconnection
+        hiddenBox.Visible = true
+        hiddenBox:CaptureFocus()
+        hiddenBox.Text = text.Text -- sync initial text
 
-        local keyqueue = 0
-
-        if not connection then
-            connection = utility.connect(services.InputService.InputBegan, function(input)
-                if input.UserInputType == Enum.UserInputType.Keyboard then
-                    if input.KeyCode ~= Enum.KeyCode.Backspace then
-                        local str = services.InputService:GetStringForKeyCode(input.KeyCode)
-
-                        if table.find(allowedcharacters, str) then
-                            keyqueue = keyqueue + 1
-                            local currentqueue = keyqueue
-                            
-                            if not services.InputService:IsKeyDown(Enum.KeyCode.RightShift) and not services.InputService:IsKeyDown(Enum.KeyCode.LeftShift) then
-                                text.Text = text.Text .. str:lower()
-                                callback(text.Text)
-
-                                local ended = false
-
-                                coroutine.wrap(function()
-                                    task.wait(0.5)
-
-                                    while services.InputService:IsKeyDown(input.KeyCode) and currentqueue == keyqueue  do
-                                        text.Text = text.Text .. str:lower()
-                                        callback(text.Text)
-            
-                                        task.wait(0.02)
-                                    end
-                                end)()
-                            else
-                                text.Text = text.Text .. (shiftcharacters[str] or str:upper())
-                                callback(text.Text)
-
-                                coroutine.wrap(function()
-                                    task.wait(0.5)
-                                    
-                                    while services.InputService:IsKeyDown(input.KeyCode) and currentqueue == keyqueue  do
-                                        text.Text = text.Text .. (shiftcharacters[str] or str:upper())
-                                        callback(text.Text)
-            
-                                        task.wait(0.02)
-                                    end
-                                end)()
-                            end
-                        end
-                    end
-
-                    if input.KeyCode == Enum.KeyCode.Return then
-                        services.ContextActionService:UnbindAction("disablekeyboard")
-                        utility.disconnect(backspaceconnection)
-                        utility.disconnect(connection)
-                        finishedcallback(text.Text)
-                    end
-                elseif input.UserInputType == Enum.UserInputType.MouseButton1 then
-                    services.ContextActionService:UnbindAction("disablekeyboard")
-                    utility.disconnect(backspaceconnection)
-                    utility.disconnect(connection)
-                    finishedcallback(text.Text)
-                end
-            end)
-
-            local backspacequeue = 0
-
-            backspaceconnection = utility.connect(services.InputService.InputBegan, function(input)
-                if input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode == Enum.KeyCode.Backspace then
-                    backspacequeue = backspacequeue + 1
-                    
-                    text.Text = text.Text:sub(1, -2)
-                    callback(text.Text)
-
-                    local currentqueue = backspacequeue
-
-                    coroutine.wrap(function()
-                        task.wait(0.5)
-
-                        if backspacequeue == currentqueue then
-                            while services.InputService:IsKeyDown(Enum.KeyCode.Backspace) do
-                                text.Text = text.Text:sub(1, -2)
-                                callback(text.Text)
-
-                                task.wait(0.02)
-                            end
-                        end
-                    end)()
-                end
-            end)
+        -- disconnect old listeners if any
+        if hiddenBox.ChangedConnection then
+            hiddenBox.ChangedConnection:Disconnect()
         end
+        if hiddenBox.FocusLostConnection then
+            hiddenBox.FocusLostConnection:Disconnect()
+        end
+
+        -- Sync text changes
+        hiddenBox.ChangedConnection = hiddenBox:GetPropertyChangedSignal("Text"):Connect(function()
+            text.Text = hiddenBox.Text
+            callback(text.Text)
+        end)
+
+        -- When user presses Enter or clicks away
+        hiddenBox.FocusLostConnection = hiddenBox.FocusLost:Connect(function(enterPressed)
+            hiddenBox.Visible = false
+            finishedcallback(text.Text)
+        end)
     end)
 end
 
