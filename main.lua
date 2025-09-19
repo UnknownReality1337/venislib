@@ -3497,7 +3497,7 @@ function library:Load(options)
                     box.Color = mouseover and utility.changecolor(library.theme["Object Background"], 3) or library.theme["Object Background"]
                 end)
 
-                library.createbox(box, txt, function(str) 
+                library.createbox(box, text, function(str) 
                     if str == "" then
                         text.Visible = false
                         placeholdertext.Visible = true
