@@ -3499,11 +3499,11 @@ function library:Load(options)
 
                 library.createbox(box, txt, function(str) 
                     if str == "" then
-                        txt.Visible = false
+                        text.Visible = false
                         placeholdertext.Visible = true
                     else
                         placeholdertext.Visible = false
-                        txt.Visible = true
+                        text.Visible = true
                     end
                 end, function(str)
                     library.flags[flag] = str
