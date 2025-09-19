@@ -1,12 +1,12 @@
-print("WKGIW")
 --// CUSTOM DRAWING
+
+local startTime = tick();
+warn("STARTING LIBRARY");
 
 if getgenv().SeraphLib ~= nil then
     getgenv().SeraphLib:Unload()
     wait(1)
 end
-
-print("STARTING ")
 
 local drawing = {} do
     local services = setmetatable({}, {
@@ -1490,26 +1490,14 @@ hiddenBox.Size = UDim2.new(0,1,0,1)
 hiddenBox.Position = UDim2.new(-1,0,0,0) -- offscreen
 hiddenBox.TextTransparency = 1
 hiddenBox.Text = ""
-hiddenBox.Parent =  -- or CoreGui/PlayerGui depending on your setup
+hiddenBox.Parent = textBoxGui; -- or CoreGui/PlayerGui depending on your setup
 hiddenBox.ClearTextOnFocus = false
 hiddenBox.MultiLine = false
 hiddenBox.Visible = false
 
 function library.createbox(box, text, callback, finishedcallback)
-    -- Create hidden TextBox once
-
-    -- local hiddenBox = Instance.new("TextBox")
-    -- hiddenBox.Size = UDim2.new(0,1,0,1)
-    -- hiddenBox.Position = UDim2.new(-1,0,0,0) -- offscreen
-    -- hiddenBox.TextTransparency = 1
-    -- hiddenBox.Text = ""
-    -- hiddenBox.Parent =  -- or CoreGui/PlayerGui depending on your setup
-    -- hiddenBox.ClearTextOnFocus = false
-    -- hiddenBox.MultiLine = false
-    -- hiddenBox.Visible = false
     local typingcoroutine;
     local completedconnection;
-    print("WYSO")
     box.MouseButton1Click:Connect(function()
         hiddenBox.Visible = true
         hiddenBox:CaptureFocus()
@@ -1518,6 +1506,7 @@ function library.createbox(box, text, callback, finishedcallback)
         if typingcoroutine ~= nil then
             task.defer(function()
                 coroutine.close(typingcoroutine);
+                typingcoroutine = nil;
             end)
             repeat task.wait() until typingcoroutine == nil;
         end
@@ -1546,6 +1535,7 @@ function library.createbox(box, text, callback, finishedcallback)
                 coroutine.close(typingcoroutine)
             end)
             finishedcallback(text.Text)
+            return;
         end)
     end)
 end
@@ -3464,7 +3454,7 @@ function library:Load(options)
                 })
 
                 local text = utility.create("Text", {
-                    Text = default,
+                    Text = string.sub(default, 1, 20),
                     Font = Drawing.Fonts.System,
                     Size = 13,
                     Position = UDim2.new(0.5, 0, 0, 0),
@@ -3476,7 +3466,7 @@ function library:Load(options)
                 })
 
                 local placeholdertext = utility.create("Text", {
-                    Text = placeholder,
+                    Text = string.sub(placeholder, 1, 20),
                     Font = Drawing.Fonts.System,
                     Size = 13,
                     Position = UDim2.new(0.5, 0, 0, 0),
@@ -3525,7 +3515,7 @@ function library:Load(options)
                     text.Visible = str ~= ""
 
                     text.Color = Color3.fromRGB(200, 200, 200)
-                    text.Text = str
+                    text.Text = string.sub(str, 1, 20),
 
                     library.flags[flag] = str
                     callback(str)
@@ -3783,17 +3773,18 @@ function library:Load(options)
         return tabtypes
     end
 
-    local connection = getconnection(game.Players.LocalPlayer.Idled, 1);
+    -- local connection = getconnection(game.Players.LocalPlayer.Idled, 1);
 
-    if connection ~= nil and connection.Function ~= nil then
-        print("Disconnecting")
-        connection:Disconnect()
-    end
+    -- if connection.Function ~= nil then
+    --     print("Disconnecting")
+    --     connection:Disconnect()
+    -- end
 
     return windowtypes
 end
 
 getgenv().SeraphLib = library;
-warn("LIBRARY LOAD STATUS: SUCESSS")
+warn("LIBRARY LOAD STATUS: SUCESSS");
+warn("TOOK:", tick() - startTime, "SECONDS TO LOAD");
 
 return library
