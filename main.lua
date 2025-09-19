@@ -3504,7 +3504,6 @@ function library:Load(options)
                     else
                         placeholdertext.Visible = false
                         txt.Visible = true
-                        txt.Text = string.sub(str, 1, 20)
                     end
                 end, function(str)
                     library.flags[flag] = str
