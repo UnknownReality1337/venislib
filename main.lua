@@ -3515,7 +3515,7 @@ function library:Load(options)
                     text.Visible = str ~= ""
 
                     text.Color = Color3.fromRGB(200, 200, 200)
-                    text.Text = string.sub(str, 1, 20),
+                    text.Text = string.sub(str, 1, 20)
 
                     library.flags[flag] = str
                     callback(str)
