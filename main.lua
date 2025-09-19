@@ -3773,12 +3773,12 @@ function library:Load(options)
         return tabtypes
     end
 
-    local connection = getconnection(game.Players.LocalPlayer.Idled, 1);
+    -- local connection = getconnection(game.Players.LocalPlayer.Idled, 1);
 
-    if connection ~= nil and connection.Function ~= nil then
-        print("Disconnecting")
-        connection:Disconnect()
-    end
+    -- if connection.Function ~= nil then
+    --     print("Disconnecting")
+    --     connection:Disconnect()
+    -- end
 
     return windowtypes
 end
