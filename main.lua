@@ -1529,12 +1529,15 @@ function library.createbox(box, text, callback, finishedcallback)
 
         completedconnection = hiddenBox.FocusLost:Connect(function()
             hiddenBox.Visible = false
+            local canContinue = false;
             task.defer(function()
-                wait(1);
-                completedconnection:Disconnect()
                 coroutine.close(typingcoroutine)
+                typingcoroutine = nil;
+                canContinue = true;
             end)
+            repeat task.wait() until canContinue == true;
             finishedcallback(text.Text)
+            text.Text = string.sub(text.Text, 1, 20)
             return;
         end)
     end)
@@ -3454,7 +3457,7 @@ function library:Load(options)
                 })
 
                 local text = utility.create("Text", {
-                    Text = default,
+                    Text = string.sub(default, 1, 20),
                     Font = Drawing.Fonts.System,
                     Size = 13,
                     Position = UDim2.new(0.5, 0, 0, 0),
@@ -3466,7 +3469,7 @@ function library:Load(options)
                 })
 
                 local placeholdertext = utility.create("Text", {
-                    Text = placeholder,
+                    Text = string.sub(placeholder, 1, 20),
                     Font = Drawing.Fonts.System,
                     Size = 13,
                     Position = UDim2.new(0.5, 0, 0, 0),
@@ -3507,7 +3510,10 @@ function library:Load(options)
                     end
                 end, function(str)
                     library.flags[flag] = str
+                    text.Text = string.sub(text.Text, 1, 20)
+                    --print("calling first callback text is:", text.Text);
                     callback(str)
+                    --print("calling first callback again text is:", text.Text);
                 end)
 
                 local function set(str)
@@ -3515,20 +3521,23 @@ function library:Load(options)
                     text.Visible = str ~= ""
 
                     text.Color = Color3.fromRGB(200, 200, 200)
-                    text.Text = str
+                    text.Text = string.sub(str, 1, 20)
 
                     library.flags[flag] = str
+                    --print("calling second callback text is:", text.Text);
                     callback(str)
                 end
 
                 set(default)
 
                 flags[flag] = set
+                --print(text.Text)
 
                 local boxtypes = utility.table({}, true)
 
                 function boxtypes:Set(str)
                     set(str)
+                    --print("1", text.Text)
                 end
 
                 return boxtypes
