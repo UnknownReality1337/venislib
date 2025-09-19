@@ -3773,12 +3773,13 @@ function library:Load(options)
         return tabtypes
     end
 
-    -- local connection = getconnection(game.Players.LocalPlayer.Idled, 1);
-
-    -- if connection.Function ~= nil then
-    --     print("Disconnecting")
-    --     connection:Disconnect()
-    -- end
+    pcall(function()
+        local VirtualUser = cloneref(game:GetService('VirtualUser'))
+        cloneref(game:GetService('Players')).LocalPlayer.Idled:Connect(function()
+        VirtualUser:CaptureController()
+        VirtualUser:ClickButton2(Vector2.new())
+        end)
+    end)
 
     return windowtypes
 end
